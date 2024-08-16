@@ -1,7 +1,11 @@
 { pkgs, ... }:
 let
   # TODO: add your ssh key here in order to be able to log in via SSH
-  sshKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbN8I8+VYqdhWf5KzuSGwGTUm5NUmwP/i2OCtspO3QT evie@janus";
+  sshKeys = [
+    "ssh-rsa <YOUR_PUBLIC_SSH_KEY>"
+  ];
+
+  # TODO: change this based on your repo: server.<BRANCH>.<REPONAME>.<GITHUB ORG/USER>.garnix.me
   host = "server.main.template-searx.garnix-io.garnix.me";
 in
 {
@@ -21,7 +25,7 @@ in
     isNormalUser = true;
     description = "me";
     extraGroups = [ "wheel" "systemd-journal" ];
-    openssh.authorizedKeys.keys = [ sshKey ];
+    openssh.authorizedKeys.keys = sshKeys;
   };
 
   # This allows you to use `sudo` without a password when ssh'ed into the machine.
@@ -44,8 +48,11 @@ in
     };
   };
 
-  services.nginx.virtualHosts."${host}" = {
-    locations."/".proxyPass = "http://localhost:8080";
+  services.nginx = {
+    enable = true;
+    virtualHosts."${host}" = {
+      locations."/".proxyPass = "http://localhost:8080";
+    };
   };
 
   # We open these ports.
