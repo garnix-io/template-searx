@@ -14,3 +14,6 @@ To get your own rss-bridge going:
   This will allow you to ssh into your deployed host.
 6) Push your changes! garnix will build and deploy the package, and make your
    server available in a `garnix.me` domain.
+
+This [Searx Server](https://server.main.template-searx.garnix-io.garnix.me) gets deployed
+automatically with this repository.
