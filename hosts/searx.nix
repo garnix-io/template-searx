@@ -37,7 +37,6 @@ in
   environment.systemPackages = [
     pkgs.htop
     pkgs.tree
-    pkgs.bottom
   ];
 
   services.searx = {
